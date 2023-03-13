@@ -22,6 +22,10 @@ function Carousel() {
     return Math.round(num * 100) / 100;
   };
 
+  function colorOfPriceChanges(price) {
+    return price > 0 ? "text-green-600" : "text-red-600";
+  }
+  //roundedNumber(items.price_change_percentage_24h)
   const items = trendCoins
     ? trendCoins.map((items) => {
         return (
@@ -33,8 +37,8 @@ function Carousel() {
             />
             <div>
               <p>
-                <span>{items.symbol}</span>
-                <span className="text-red-600 font-bold">
+                <span>{items.symbol} </span>
+                <span className="font-bold">
                   {roundedNumber(items.price_change_percentage_24h)}%
                 </span>
               </p>
