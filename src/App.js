@@ -3,6 +3,7 @@ import Loader from "./components/Loader";
 import HomePage from "./components/pages/HomePage";
 import SingleCoin from "./components/pages/SingleCoin";
 import { Routes, Route } from "react-router-dom";
+
 function App() {
   return (
     <div className="bg-[#14161A]">
