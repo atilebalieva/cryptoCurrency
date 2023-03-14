@@ -12,11 +12,11 @@ function CoinList() {
   const fetchCoins = () => {
     axios
       .get(
-        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false"
+        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
       )
       .then((data) => {
         setCoins(data.data);
-      });
+      }).catch(error => console.log(error));
   };
 
   useEffect(() => {
@@ -84,7 +84,13 @@ function CoinList() {
           })}
         </tbody>
       </table>
-      <ReactPaginate previousLabel='<' nextLabel=">" onPageChange={(numOfPage)=>setPage(numOfPage.selected+1)} pageCount = {coins.length/10} className="text-yellow-400 font-bold flex items-center space-x-5 my-10 w-min"/>
+      <ReactPaginate previousLabel='<' nextLabel=">" 
+      onPageChange={(numOfPage)=>setPage(numOfPage.selected+1)} 
+      pageCount = {coins.length/10} 
+      pageClassName = "rounded-[50%] hover:bg-neutral-500 w-10 h-10 flex justify-center align-center"
+      previousClassName = "rounded-[50%] hover:bg-neutral-500 w-10 h-10 flex justify-center align-center"
+      nextClassName = "rounded-[50%] hover:bg-neutral-500 w-10 h-10 flex justify-center align-center"
+      className="text-yellow-400 font-bold flex items-center space-x-5 my-10 w-min"/>
     </div>
   );
 }

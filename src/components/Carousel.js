@@ -11,7 +11,7 @@ function Carousel() {
       )
       .then((data) => {
         setTrendCoins(data.data);
-      });
+      }).catch(error => console.log(error));
   };
 
   useEffect(() => {
