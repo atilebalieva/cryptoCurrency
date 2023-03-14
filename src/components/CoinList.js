@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loader from "./Loader";
+import ReactPaginate from 'react-paginate';
 
 function CoinList() {
   const [coins, setCoins] = useState([]);
@@ -11,7 +12,7 @@ function CoinList() {
   const fetchCoins = () => {
     axios
       .get(
-        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=1000&page=1&sparkline=false"
+        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false"
       )
       .then((data) => {
         setCoins(data.data);
@@ -55,7 +56,7 @@ function CoinList() {
           </tr>
         </thead>
         <tbody>
-          {handleSearch().map((item) => {
+          {handleSearch().slice((page-1)*10,(page-1)*10+10).map((item) => {
             return (
               <tr
                 onClick={() => {
@@ -83,10 +84,9 @@ function CoinList() {
           })}
         </tbody>
       </table>
+      <ReactPaginate previousLabel='<' nextLabel=">" onPageChange={(numOfPage)=>setPage(numOfPage.selected+1)} pageCount = {coins.length/10} className="text-yellow-400 font-bold flex items-center space-x-5 my-10 w-min"/>
     </div>
   );
 }
 
 export default CoinList;
-
-// slice((page-1)*10,(page-1)*10-10)
