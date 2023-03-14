@@ -5,7 +5,9 @@ import Loader from "./Loader";
 
 function CoinList() {
   const [coins, setCoins] = useState([]);
-  const [searchFilter, setSearchFilter] = useState([]);
+  const [search, setSearch] = useState('');
+  const [page,setPage] = useState(1);
+  const navigate = useNavigate();
   const fetchCoins = () => {
     axios
       .get(
@@ -20,15 +22,11 @@ function CoinList() {
     fetchCoins();
   }, []);
 
-  const handleSearch = (search) => {
-    const filteredList = coins.filter((item) => {
-      return item.symbol.includes(search) || item.name.includes(search);
-    });
-    return searchFilter.length < 0
-      ? setSearchFilter(coins)
-      : setSearchFilter(filteredList);
+  const handleSearch = () => {
+    return coins.filter((coin) => {
+      return coin.symbol.toLowerCase().includes(search) || coin.name.toLowerCase().includes(search);
+    })
   };
-  const navigate = useNavigate();
 
   if (!coins.length > 0) return <Loader />;
   return (
@@ -44,7 +42,7 @@ function CoinList() {
           placeholder="Search for a Crypto Currency"
           className="w-full p-3 bg-[#14161A] mb-5 rounded border border-gray-100
           "
-          onInput={(e) => handleSearch(e.target.value)}
+          onInput={(e) => setSearch(e.target.value)}
         />
       </div>
       <table className="w-full">
@@ -57,7 +55,7 @@ function CoinList() {
           </tr>
         </thead>
         <tbody>
-          {searchFilter.map((item) => {
+          {handleSearch().map((item) => {
             return (
               <tr
                 onClick={() => {
@@ -91,4 +89,4 @@ function CoinList() {
 
 export default CoinList;
 
-//https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=1000&page=1&sparkline=false
+// slice((page-1)*10,(page-1)*10-10)
