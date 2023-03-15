@@ -1,15 +1,16 @@
-import React, { useState } from "react";
-import SinglePageInfo from "../components/SinglePageInfo";
-import SinglePageChart from "../components/SinglePageChart";
-
+import React from "react";
+import { useParams } from "react-router-dom";
+// import SinglePageChart from "../SinglePageChart";
+import SinglePageInfo from "../SinglePageInfo";
 
 function SingleCoin() {
   const params = useParams();
 
-  return <div>
-    <SinglePageInfo id={params.id} />
-    <SinglePageChart />
-  </div>;
+  return (
+    <div>
+      <SinglePageInfo id={params.id} />
+    </div>
+  );
 }
 
 export default SingleCoin;

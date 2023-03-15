@@ -2,12 +2,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loader from "./Loader";
-import ReactPaginate from 'react-paginate';
+import ReactPaginate from "react-paginate";
 
 function CoinList() {
   const [coins, setCoins] = useState([]);
-  const [search, setSearch] = useState('');
-  const [page,setPage] = useState(1);
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
   const navigate = useNavigate();
   const fetchCoins = () => {
     axios
@@ -16,7 +16,8 @@ function CoinList() {
       )
       .then((data) => {
         setCoins(data.data);
-      }).catch(error => console.log(error));
+      })
+      .catch((error) => console.log(error));
   };
 
   useEffect(() => {
@@ -25,8 +26,11 @@ function CoinList() {
 
   const handleSearch = () => {
     return coins.filter((coin) => {
-      return coin.symbol.toLowerCase().includes(search) || coin.name.toLowerCase().includes(search);
-    })
+      return (
+        coin.symbol.toLowerCase().includes(search) ||
+        coin.name.toLowerCase().includes(search)
+      );
+    });
   };
 
   if (!coins.length > 0) return <Loader />;
@@ -56,41 +60,47 @@ function CoinList() {
           </tr>
         </thead>
         <tbody>
-          {handleSearch().slice((page-1)*10,(page-1)*10+10).map((item) => {
-            return (
-              <tr
-                onClick={() => {
-                  navigate("coin/" + item.id);
-                }}
-                className="border-b border-gray-100 text-center hover:bg-slate-800 hover: cursor-pointer"
-              >
-                <td className="flex ml-4 m-3 text-left">
-                  <img
-                    src={item.image}
-                    alt="coin-symbol"
-                    className="w-12
+          {handleSearch()
+            .slice((page - 1) * 10, (page - 1) * 10 + 10)
+            .map((item, index) => {
+              return (
+                <tr
+                  key={index}
+                  onClick={() => {
+                    navigate("/coin/" + item.id);
+                  }}
+                  className="border-b border-gray-100 text-center hover:bg-slate-800 hover: cursor-pointer"
+                >
+                  <td className="flex ml-4 m-3 text-left">
+                    <img
+                      src={item.image}
+                      alt="coin-symbol"
+                      className="w-12
                     h-12 mr-3"
-                  />
-                  <div>
-                    <p className="uppercase">{item.symbol}</p>
-                    <p>{item.name}</p>
-                  </div>
-                </td>
-                <td>$ {item.current_price}</td>
-                <td>{item.price_change_percentage_24h}</td>
-                <td>{item.market_cap}</td>
-              </tr>
-            );
-          })}
+                    />
+                    <div>
+                      <p className="uppercase">{item.symbol}</p>
+                      <p>{item.name}</p>
+                    </div>
+                  </td>
+                  <td>$ {item.current_price}</td>
+                  <td>{item.price_change_percentage_24h}</td>
+                  <td>{item.market_cap}</td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
-      <ReactPaginate previousLabel='<' nextLabel=">" 
-      onPageChange={(numOfPage)=>setPage(numOfPage.selected+1)} 
-      pageCount = {coins.length/10} 
-      pageClassName = "rounded-[50%] hover:bg-neutral-500 w-10 h-10 flex justify-center align-center"
-      previousClassName = "rounded-[50%] hover:bg-neutral-500 w-10 h-10 flex justify-center align-center"
-      nextClassName = "rounded-[50%] hover:bg-neutral-500 w-10 h-10 flex justify-center align-center"
-      className="text-yellow-400 font-bold flex items-center space-x-5 my-10 w-min"/>
+      <ReactPaginate
+        previousLabel="<"
+        nextLabel=">"
+        onPageChange={(numOfPage) => setPage(numOfPage.selected + 1)}
+        pageCount={coins.length / 10}
+        pageClassName="rounded-[50%] hover:bg-neutral-500 w-10 h-10 flex justify-center items-center"
+        previousClassName="rounded-[50%] hover:bg-neutral-500 w-10 h-10 flex justify-center items-center"
+        nextClassName="rounded-[50%] hover:bg-neutral-500 w-10 h-10 flex justify-center items-center"
+        className="text-yellow-400 font-bold flex items-center justify-center space-x-5 my-10 w-full"
+      />
     </div>
   );
 }
