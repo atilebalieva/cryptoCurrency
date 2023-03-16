@@ -11,7 +11,8 @@ function Carousel() {
       )
       .then((data) => {
         setTrendCoins(data.data);
-      }).catch(error => console.log(error));
+      })
+      .catch((error) => console.log(error));
   };
 
   useEffect(() => {
@@ -25,7 +26,7 @@ function Carousel() {
   function colorOfPriceChanges(price) {
     return price > 0 ? "text-green-600" : "text-red-600";
   }
-  //roundedNumber(items.price_change_percentage_24h)
+
   const items = trendCoins
     ? trendCoins.map((items) => {
         return (
@@ -38,8 +39,17 @@ function Carousel() {
             <div>
               <p>
                 <span>{items.symbol} </span>
-                <span className="font-bold">
-                  {roundedNumber(items.price_change_percentage_24h)}%
+                <span
+                  className={
+                    roundedNumber(items.price_change_percentage_24h) > 0
+                      ? "text-green-500 font-bold"
+                      : "text-red-500 font-bold"
+                  }
+                >
+                  {items.price_change_percentage_24h > 0
+                    ? `+${roundedNumber(items.price_change_percentage_24h)}`
+                    : roundedNumber(items.price_change_percentage_24h)}
+                  %
                 </span>
               </p>
               <p>${roundedNumber(items.current_price)}</p>

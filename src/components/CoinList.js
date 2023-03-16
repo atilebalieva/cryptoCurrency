@@ -24,14 +24,14 @@ function CoinList() {
     fetchCoins();
   }, []);
 
-  const handleSearch = () => {
-    return coins.filter((coin) => {
-      return (
-        coin.symbol.toLowerCase().includes(search) ||
-        coin.name.toLowerCase().includes(search)
-      );
-    });
-  };
+  const filteredCoins = coins.filter((coin) => {
+    return (
+      coin.symbol.toLowerCase().includes(search.toLowerCase()) ||
+      coin.name.toLowerCase().includes(search.toLowerCase())
+    );
+  });
+
+  console.log(filteredCoins);
 
   if (!coins.length > 0) return <Loader />;
   return (
@@ -60,7 +60,7 @@ function CoinList() {
           </tr>
         </thead>
         <tbody>
-          {handleSearch()
+          {filteredCoins
             .slice((page - 1) * 10, (page - 1) * 10 + 10)
             .map((item, index) => {
               return (
@@ -84,8 +84,18 @@ function CoinList() {
                     </div>
                   </td>
                   <td>$ {item.current_price}</td>
-                  <td>{item.price_change_percentage_24h}</td>
-                  <td>{item.market_cap}</td>
+                  <td
+                    className={
+                      item.price_change_percentage_24h > 0
+                        ? "text-green-500 font-bold"
+                        : "text-red-500 font-bold"
+                    }
+                  >
+                    {item.price_change_percentage_24h > 0
+                      ? `+${item.price_change_percentage_24h.toFixed(2)}`
+                      : item.price_change_percentage_24h.toFixed(2)}
+                  </td>
+                  <td>{item.market_cap}M</td>
                 </tr>
               );
             })}
@@ -99,7 +109,7 @@ function CoinList() {
         pageClassName="rounded-[50%] hover:bg-neutral-500 w-10 h-10 flex justify-center items-center"
         previousClassName="rounded-[50%] hover:bg-neutral-500 w-10 h-10 flex justify-center items-center"
         nextClassName="rounded-[50%] hover:bg-neutral-500 w-10 h-10 flex justify-center items-center"
-        className="text-yellow-400 font-bold flex items-center justify-center space-x-5 my-10 w-full"
+        className="text-yellow-400 font-bold flex items-center justify-center space-x-5 mt-10 w-full pb-10"
       />
     </div>
   );
