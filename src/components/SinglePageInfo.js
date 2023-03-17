@@ -20,14 +20,19 @@ function SinglePageInfo(props) {
   if (!coin) return <Loader />;
   else if (coin)
     return (
-      <div className="text-white flex items-center flex-col">
+      <div className="text-white flex items-center flex-col mx-4">
         <img
           className="w-20 h-20"
           src={coin.image == undefined ? "No image" : coin.image.small}
           alt="coin-symbol"
         />
         <h1>{coin.name}</h1>
-        {/* <p>{coin.description.en.slice(0)}</p> */}
+        <p className="text-justify">
+          {coin.description == undefined
+            ? ""
+            : coin.description.en.split(/\. [A-Z0-9]/)[0]}
+          .shift
+        </p>
         <p>
           Rank: <span>{coin.market_cap_rank}</span>
         </p>
