@@ -50,57 +50,60 @@ function CoinList() {
           onInput={(e) => setSearch(e.target.value)}
         />
       </div>
-      <table className="w-full">
-        <thead>
-          <tr className="bg-yellow-400 text-black font-bold h-12">
-            <th className="rounded-tl-md">Coin</th>
-            <th>Price</th>
-            <th>24th Change</th>
-            <th className="rounded-tr">Market Cap</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredCoins
-            .slice((page - 1) * 10, (page - 1) * 10 + 10)
-            .map((item, index) => {
-              return (
-                <tr
-                  key={index}
-                  onClick={() => {
-                    navigate("/coin/" + item.id);
-                  }}
-                  className="border-b border-gray-100 text-center hover:bg-slate-800 hover: cursor-pointer"
-                >
-                  <td className="flex ml-4 m-3 text-left">
-                    <img
-                      src={item.image}
-                      alt="coin-symbol"
-                      className="w-12
-                    h-12 mr-3"
-                    />
-                    <div>
-                      <p className="uppercase">{item.symbol}</p>
-                      <p>{item.name}</p>
-                    </div>
-                  </td>
-                  <td>$ {item.current_price.toLocaleString()}</td>
-                  <td
-                    className={
-                      item.price_change_percentage_24h > 0
-                        ? "text-green-500 font-bold"
-                        : "text-red-500 font-bold"
-                    }
+      <div className="overflow-x-auto">
+        <table className=" w-full">
+          <thead>
+            <tr className="bg-yellow-400 text-black font-bold h-12">
+              <th className="rounded-tl-md">Coin</th>
+              <th>Price</th>
+              <th>24th Change</th>
+              <th className="rounded-tr">Market Cap</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredCoins
+              .slice((page - 1) * 10, (page - 1) * 10 + 10)
+              .map((item, index) => {
+                return (
+                  <tr
+                    key={index}
+                    onClick={() => {
+                      navigate("/coin/" + item.id);
+                    }}
+                    className="border-b border-gray-100 text-center hover:bg-slate-800 hover: cursor-pointer"
                   >
-                    {item.price_change_percentage_24h > 0
-                      ? `+${item.price_change_percentage_24h.toFixed(2)}`
-                      : item.price_change_percentage_24h.toFixed(2)}
-                  </td>
-                  <td>{item.market_cap.toLocaleString()} M</td>
-                </tr>
-              );
-            })}
-        </tbody>
-      </table>
+                    <td className="flex text-left my-3 mr-3">
+                      <img
+                        src={item.image}
+                        alt="coin-symbol"
+                        className="w-12
+                    h-12 mr-3"
+                      />
+                      <div>
+                        <p className="uppercase">{item.symbol}</p>
+                        <p>{item.name}</p>
+                      </div>
+                    </td>
+                    <td>$ {item.current_price.toLocaleString()}</td>
+                    <td
+                      className={
+                        item.price_change_percentage_24h > 0
+                          ? "text-green-500 font-bold"
+                          : "text-red-500 font-bold"
+                      }
+                    >
+                      {item.price_change_percentage_24h > 0
+                        ? `+${item.price_change_percentage_24h.toFixed(2)}`
+                        : item.price_change_percentage_24h.toFixed(2)}
+                    </td>
+                    <td>{item.market_cap.toLocaleString()} M</td>
+                  </tr>
+                );
+              })}
+          </tbody>
+        </table>
+      </div>
+
       <ReactPaginate
         previousLabel="<"
         nextLabel=">"

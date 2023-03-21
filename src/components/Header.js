@@ -37,7 +37,7 @@ function Header() {
             <li>Exchanges</li>
           </ul>
         </nav>
-        <div
+        {/* <div
           className="text-white cursor-pointer"
           onClick={() => {
             setCollapsed(!collapsed);
@@ -45,7 +45,7 @@ function Header() {
         >
           Click
         </div>
-        <SideBar collapsed={collapsed} />
+        <SideBar collapsed={collapsed} /> */}
       </header>
     </div>
   );

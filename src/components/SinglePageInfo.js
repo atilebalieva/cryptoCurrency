@@ -7,7 +7,7 @@ function SinglePageInfo(props) {
   const [coin, setCoins] = useState([]);
   const fetchCoins = () => {
     axios
-      .get(`https://api.coingecko.com/api/v3/coins/${props.id}`) //bitcoin
+      .get(`https://api.coingecko.com/api/v3/coins/${props.id}`)
       .then((data) => {
         setCoins(data.data);
       });
@@ -20,13 +20,13 @@ function SinglePageInfo(props) {
   if (!coin) return <Loader />;
   else if (coin)
     return (
-      <div className="text-white flex items-center flex-col mx-7 px-7 w-[100%] lg:w-[50%] text-xl justify-center text-center border-r-2 lg:border-r-0 tracking-wide">
+      <div className="text-white flex items-center flex-col mx-7 px-7 w-[100%] lg:w-[50%] md:text-xl justify-center text-center border-r-0 lg:border-r-2 tracking-wide">
         <img
-          className="w-[100px] h-[100px]"
+          className="w-[70px] h-[70px] md:w-[100px] md:h-[100px]"
           src={coin.image == undefined ? "No image" : coin.image.small}
           alt="coin-symbol"
         />
-        <h1 className="text-3xl font-bold my-4">{coin.name}</h1>
+        <h1 className="text-xl md:text-3xl font-bold my-4">{coin.name}</h1>
         <p className="mb-4">
           {coin.description == undefined
             ? ""

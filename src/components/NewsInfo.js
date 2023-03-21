@@ -35,7 +35,6 @@ function NewsInfo() {
 
   if (!news) return <Loader />;
   return (
-    //  <div className="grid grid-flow-row-dense md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto">
     <div className="flex flex-wrap justify-evenly mx-[30px]">
       {news.map((news, index) => {
         return (
