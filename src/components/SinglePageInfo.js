@@ -20,32 +20,35 @@ function SinglePageInfo(props) {
   if (!coin) return <Loader />;
   else if (coin)
     return (
-      <div className="text-white flex items-center flex-col mx-4">
+      <div className="text-white flex items-center flex-col mx-7 px-7 w-[50%] text-xl justify-center text-center border-r-2 tracking-wide">
         <img
-          className="w-20 h-20"
+          className="w-[100px] h-[100px]"
           src={coin.image == undefined ? "No image" : coin.image.small}
           alt="coin-symbol"
         />
-        <h1>{coin.name}</h1>
-        <p className="text-justify">
+        <h1 className="text-3xl font-bold my-4">{coin.name}</h1>
+        <p className="mb-4">
           {coin.description == undefined
             ? ""
             : coin.description.en.split(/\. [A-Z0-9]/)[0]}
-          .shift
         </p>
-        <p>
-          Rank: <span>{coin.market_cap_rank}</span>
-        </p>
-        <p>
-          Current Price: $
-          {coin.market_data == undefined
-            ? "No information"
-            : coin.market_data.current_price.usd}
-        </p>
-        <p>
-          Market Cap: $
-          {coin.market_cap == undefined ? "No information" : coin.market_cap}
-        </p>
+        <div className="font-bold">
+          <p>
+            Rank: <span>{coin.market_cap_rank}</span>
+          </p>
+          <p>
+            Current Price: $
+            {coin.market_data == undefined
+              ? "No information"
+              : coin.market_data.current_price.usd.toLocaleString()}
+          </p>
+          <p>
+            Market Cap: $
+            {coin.market_data == undefined
+              ? "No information"
+              : coin.market_data.market_cap.usd.toLocaleString()}
+          </p>
+        </div>
       </div>
     );
 }

@@ -83,7 +83,7 @@ function CoinList() {
                       <p>{item.name}</p>
                     </div>
                   </td>
-                  <td>$ {item.current_price}</td>
+                  <td>$ {item.current_price.toLocaleString()}</td>
                   <td
                     className={
                       item.price_change_percentage_24h > 0
@@ -95,7 +95,7 @@ function CoinList() {
                       ? `+${item.price_change_percentage_24h.toFixed(2)}`
                       : item.price_change_percentage_24h.toFixed(2)}
                   </td>
-                  <td>{item.market_cap}M</td>
+                  <td>{item.market_cap.toLocaleString()} M</td>
                 </tr>
               );
             })}

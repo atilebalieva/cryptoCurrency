@@ -6,7 +6,7 @@ import News from "./components/pages/News";
 
 function App() {
   return (
-    <div className="bg-[#14161A] min-h-[100vh]">
+    <div className="bg-[#14161A] min-h-[100vh] flex flex-col ">
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
