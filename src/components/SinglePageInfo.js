@@ -20,7 +20,7 @@ function SinglePageInfo(props) {
   if (!coin) return <Loader />;
   else if (coin)
     return (
-      <div className="text-white flex items-center flex-col mx-7 px-7 w-[50%] text-xl justify-center text-center border-r-2 tracking-wide">
+      <div className="text-white flex items-center flex-col mx-7 px-7 w-[100%] lg:w-[50%] text-xl justify-center text-center border-r-2 lg:border-r-0 tracking-wide">
         <img
           className="w-[100px] h-[100px]"
           src={coin.image == undefined ? "No image" : coin.image.small}

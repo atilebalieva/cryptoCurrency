@@ -1,8 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import SideBar from "./SideBar";
+import { useState } from "react";
 
 function Header() {
   const navigate = useNavigate();
+  const [collapsed, setCollapsed] = useState(true);
+
   return (
     <div>
       <header className="flex items-center uppercase px-10 py-5 font-bold shadow-2xl">
@@ -14,7 +18,7 @@ function Header() {
         >
           Cryptohunt
         </h1>
-        <nav>
+        <nav className="hidden sm:block">
           <ul className="text-white flex items-center space-x-5 text-sm">
             <li
               onClick={() => {
@@ -33,6 +37,15 @@ function Header() {
             <li>Exchanges</li>
           </ul>
         </nav>
+        <div
+          className="text-white cursor-pointer"
+          onClick={() => {
+            setCollapsed(!collapsed);
+          }}
+        >
+          Click
+        </div>
+        <SideBar collapsed={collapsed} />
       </header>
     </div>
   );
